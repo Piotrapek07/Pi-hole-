@@ -1,10 +1,8 @@
-# Sprawdzenie czy skrypt został uruchomiony jako administrator
 if [ "$(id -u)" -ne 0 ]; then
   echo -e "\e[1mProszę uruchom ten skrypt jako administrator (używając sudo)\e[0m"
   exit 1  
 fi
 
-# Funkcja do wyświetlania paska postępu
 progress_bar() {
   local current="$1"
   local total="$2"
@@ -15,14 +13,11 @@ progress_bar() {
   printf "\r%s\n[%-${max_width}s] %3d%%" "$operation" "$(printf '#%.0s' $(seq 1 "$progress"))" "$percentage"
 }
 
-# Inicjalizacja liczby wykonanych operacji
 completed_operations=0
 
-# Liczba wszystkich operacji
 total_operations=3
 
 while true; do
-  # Wykonaj aktualizację list pakietów
   operation="Aktualizacja list pakietów..."
   echo -n "$operation"
   sudo apt update >/dev/null 2>&1
@@ -30,7 +25,6 @@ while true; do
   progress_bar "$completed_operations" "$total_operations"
   echo
   
-  # Wykonaj aktualizację pakietów
   operation="Aktualizacja pakietów..."
   echo -n "$operation"
   sudo apt upgrade -y >/dev/null 2>&1
@@ -38,7 +32,6 @@ while true; do
   progress_bar "$completed_operations" "$total_operations"
   echo
   
-  # Wykonaj instalację curla
   operation="Instalacja curl..."
   echo -n "$operation"
   sudo apt install curl -y >/dev/null 2>&1
@@ -46,16 +39,13 @@ while true; do
   progress_bar "$completed_operations" "$total_operations"
   echo
   
-  # Jeśli wykonano wszystkie operacje, zakończ pętlę
   if [ "$completed_operations" -eq "$total_operations" ]; then
     break
   fi
 done
 
-#instalacja pihole
 curl -sSL https://install.pi-hole.net | bash
 
-#zmiananano hasła zrobic czytelniejsze to i nie tylko 
 echo ""
 echo "--------------------------------------------------"
 echo "\033[1mWpisz nowe hasło dla pihole\033[0m"
@@ -63,7 +53,6 @@ echo "--------------------------------------------------"
 echo ""
 sudo pihole -a -p
 
-#instalacja i konfig unbounda
 sudo apt install unbound
 sudo cat >> /etc/unbound/unbound.conf.d/pi-hole.conf << EOF
 server:
@@ -135,7 +124,6 @@ server:
 EOF
 sudo service unbound restart
 
-#zmiana częstotliwości aktualizacji adlisty
 sudo cat > /etc/cron.d/pihole << EOF
 # Pi-hole: A black hole for Internet advertisements
 # (c) 2017 Pi-hole, LLC (https://pi-hole.net)

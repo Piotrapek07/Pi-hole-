@@ -1,10 +1,8 @@
-# Sprawdzenie czy skrypt został uruchomiony jako administrator
 if [ "$(id -u)" -ne 0 ]; then
   echo -e "\e[1mProszę uruchom ten skrypt jako administrator (używając sudo)\e[0m"
   exit 1  
 fi
 
-#zmiana częstotliwości aktualizacji adlisty
 sudo cat > /etc/cron.d/pihole << EOF
 # Pi-hole: A black hole for Internet advertisements
 # (c) 2017 Pi-hole, LLC (https://pi-hole.net)
