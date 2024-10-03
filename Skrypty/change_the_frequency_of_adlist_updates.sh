@@ -38,4 +38,5 @@ sudo cat > /etc/cron.d/pihole << EOF
 13 18  * * *   root    PATH="$PATH:/usr/sbin:/usr/local/bin/" pihole updatechecker
 @reboot root    PATH="$PATH:/usr/sbin:/usr/local/bin/" pihole updatechecker reboot
 EOF
+
 sudo service cron reload
