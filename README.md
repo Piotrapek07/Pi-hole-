@@ -1,5 +1,8 @@
 # Pi-hole Installation Scripts
 
+## Tytuł projektu:
+**Pi-hole: Instalacja i działanie zaawansowanego narzędzia do blokowania reklam na poziomie sieci.**
+
 ## Cel projektu:
 **Przygotowanie skryptu i instrukcji do instalacji usługi Pi-hole**, tak aby każdy, niezależnie od poziomu swojej wiedzy technicznej, mógł samodzielnie zainstalować Pi-hole, opierając się wyłącznie na dostarczonych informacjach.
 
